@@ -1,0 +1,31 @@
+# FIXED
+
+halwaitsensor.obj: ../halwaitsensor.c
+halwaitsensor.obj: ../include/includes.h
+halwaitsensor.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/msp430/include/string.h
+halwaitsensor.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/msp430/include/linkage.h
+halwaitsensor.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/msp430/include/msp430x16x.h
+halwaitsensor.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/msp430/include/in430.h
+halwaitsensor.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/msp430/include/signal.h
+halwaitsensor.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/msp430/include/yvals.h
+halwaitsensor.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/msp430/include/stdarg.h
+halwaitsensor.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/msp430/include/_lock.h
+halwaitsensor.obj: ../include/hal/msp430/hal_msp430FET.h
+halwaitsensor.obj: ../include/hal/msp430/hal.h
+halwaitsensor.obj: ../include/hal/hal_cc2420.h
+halwaitsensor.obj: ../include/basic_rf/basic_rf.h
+
+../halwaitsensor.c: 
+../include/includes.h: 
+C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/msp430/include/string.h: 
+C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/msp430/include/linkage.h: 
+C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/msp430/include/msp430x16x.h: 
+C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/msp430/include/in430.h: 
+C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/msp430/include/signal.h: 
+C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/msp430/include/yvals.h: 
+C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/msp430/include/stdarg.h: 
+C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/msp430/include/_lock.h: 
+../include/hal/msp430/hal_msp430FET.h: 
+../include/hal/msp430/hal.h: 
+../include/hal/hal_cc2420.h: 
+../include/basic_rf/basic_rf.h: 

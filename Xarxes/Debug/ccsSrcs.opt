@@ -1,0 +1,1 @@
+"../blink.c" "../hal_TempCalculation.c" "../hal_rf_set_channel.c" "../hal_rf_wait_for_crystal_oscillator.c" "../hal_spi.c" "../hal_wait.c" "../halwaitsensor.c" 

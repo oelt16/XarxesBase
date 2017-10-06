@@ -1,0 +1,575 @@
+******************************************************************************
+       MSP430 Evaluation Linker PC v3.3.3                      
+******************************************************************************
+>> Linked Mon Oct 21 00:21:54 2013
+
+OUTPUT FILE NAME:   <test1.out>
+ENTRY POINT SYMBOL: "_c_int00"  address: 00004c46
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  SFR                   00000000   00000010  00000000  00000010  RWIX
+  PERIPHERALS_8BIT      00000010   000000f0  00000000  000000f0  RWIX
+  PERIPHERALS_16BIT     00000100   00000100  00000000  00000100  RWIX
+  INFOB                 00001000   00000080  00000000  00000080  RWIX
+  INFOA                 00001080   00000080  00000000  00000080  RWIX
+  RAM                   00001100   00002800  0000006b  00002795  RWIX
+  FLASH                 00004000   0000bfe0  00000d27  0000b2b9  RWIX
+  INT00                 0000ffe0   00000002  00000000  00000002  RWIX
+  INT01                 0000ffe2   00000002  00000002  00000000  RWIX
+  INT02                 0000ffe4   00000002  00000000  00000002  RWIX
+  INT03                 0000ffe6   00000002  00000000  00000002  RWIX
+  INT04                 0000ffe8   00000002  00000002  00000000  RWIX
+  INT05                 0000ffea   00000002  00000000  00000002  RWIX
+  INT06                 0000ffec   00000002  00000002  00000000  RWIX
+  INT07                 0000ffee   00000002  00000000  00000002  RWIX
+  INT08                 0000fff0   00000002  00000000  00000002  RWIX
+  INT09                 0000fff2   00000002  00000000  00000002  RWIX
+  INT10                 0000fff4   00000002  00000000  00000002  RWIX
+  INT11                 0000fff6   00000002  00000000  00000002  RWIX
+  INT12                 0000fff8   00000002  00000000  00000002  RWIX
+  INT13                 0000fffa   00000002  00000000  00000002  RWIX
+  INT14                 0000fffc   00000002  00000000  00000002  RWIX
+  RESET                 0000fffe   00000002  00000002  00000000  RWIX
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.pinit     0    00004000    00000000     UNINITIALIZED
+
+.bss       0    00001100    0000001b     UNINITIALIZED
+                  00001100    00000012     blink.obj (.bss)
+                  00001112    00000004     rts430.lib : _lock.obj (.bss)
+                  00001116    00000004                : boot.obj (.bss)
+                  0000111a    00000001     hal_TempCalculation.obj (.bss)
+
+.stack     0    000038b0    00000050     UNINITIALIZED
+                  000038b0    00000002     rts430.lib : boot.obj (.stack)
+                  000038b2    0000004e     --HOLE--
+
+.text      0    00004000    00000d12     
+                  00004000    00000344     blink.obj (.text:fifo_rx)
+                  00004344    00000222     blink.obj (.text:basicRfSendPacket)
+                  00004566    000001a2     blink.obj (.text:basicRfInit)
+                  00004708    00000130     rts430.lib : fs_add.obj (.text)
+                  00004838    000000d6     blink.obj (.text:main)
+                  0000490e    000000c2     rts430.lib : fs_mpy.obj (.text)
+                  000049d0    0000009a                : fs_div.obj (.text)
+                  00004a6a    00000068                : fs_toi.obj (.text)
+                  00004ad2    0000004a                : fs_cmp.obj (.text)
+                  00004b1c    00000046                : autoinit.obj (.text:_auto_init)
+                  00004b62    00000042     hal_rf_set_channel.obj (.text:halRfSetChannel)
+                  00004ba4    00000038     blink.obj (.text:basicRfReceiveOn)
+                  00004bdc    00000036     rts430.lib : fs_itof.obj (.text)
+                  00004c12    00000034     hal_spi.obj (.text:halSpiInit)
+                  00004c46    00000026     rts430.lib : boot.obj (.text:_c_int00_noexit)
+                  00004c6c    00000024     hal_rf_wait_for_crystal_oscillator.obj (.text:halRfWaitForCrystalOscillator)
+                  00004c90    0000001c     blink.obj (.text:InitP2_7)
+                  00004cac    0000001a     blink.obj (.text:timer1min)
+                  00004cc6    00000018     blink.obj (.text:P2_ISR)
+                  00004cde    00000012     rts430.lib : memcpy.obj (.text:memcpy)
+                  00004cf0    00000010                : epilog.obj (.text)
+                  00004d00    00000008     hal_wait.obj (.text:halWait)
+                  00004d08    00000004     rts430.lib : pre_init.obj (.text:_system_pre_init)
+                  00004d0c    00000004                : exit.obj (.text:abort)
+                  00004d10    00000002                : _lock.obj (.text:_nop)
+
+.cinit     0    00004d12    00000014     
+                  00004d12    00000011     blink.obj (.cinit)
+                  00004d23    00000001     --HOLE-- [fill = 0]
+                  00004d24    00000002     (.pad.cinit) [fill = 0]
+
+.const     0    00004d26    00000001     
+                  00004d26    00000001     blink.obj (.const)
+
+.int01     0    0000ffe2    00000002     
+                  0000ffe2    00000002     blink.obj (.int01)
+
+.int04     0    0000ffe8    00000002     
+                  0000ffe8    00000002     blink.obj (.int04)
+
+.int06     0    0000ffec    00000002     
+                  0000ffec    00000002     blink.obj (.int06)
+
+.reset     0    0000fffe    00000002     
+                  0000fffe    00000002     rts430.lib : boot.obj (.reset)
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address    name
+--------   ----
+00001100   .bss
+00004000   .text
+000001a0   ADC12CTL0
+000001a2   ADC12CTL1
+000001a6   ADC12IE
+000001a4   ADC12IFG
+000001a8   ADC12IV
+00000080   ADC12MCTL0
+00000081   ADC12MCTL1
+0000008a   ADC12MCTL10
+0000008b   ADC12MCTL11
+0000008c   ADC12MCTL12
+0000008d   ADC12MCTL13
+0000008e   ADC12MCTL14
+0000008f   ADC12MCTL15
+00000082   ADC12MCTL2
+00000083   ADC12MCTL3
+00000084   ADC12MCTL4
+00000085   ADC12MCTL5
+00000086   ADC12MCTL6
+00000087   ADC12MCTL7
+00000088   ADC12MCTL8
+00000089   ADC12MCTL9
+00000140   ADC12MEM0
+00000142   ADC12MEM1
+00000154   ADC12MEM10
+00000156   ADC12MEM11
+00000158   ADC12MEM12
+0000015a   ADC12MEM13
+0000015c   ADC12MEM14
+0000015e   ADC12MEM15
+00000144   ADC12MEM2
+00000146   ADC12MEM3
+00000148   ADC12MEM4
+0000014a   ADC12MEM5
+0000014c   ADC12MEM6
+0000014e   ADC12MEM7
+00000150   ADC12MEM8
+00000152   ADC12MEM9
+0000110e   AddrOK
+00000057   BCSCTL1
+00000058   BCSCTL2
+00004d0c   C$$EXIT
+00000059   CACTL1
+0000005a   CACTL2
+0000005b   CAPD
+0000110c   CoordinatorAddr
+000001c0   DAC12_0CTL
+000001c8   DAC12_0DAT
+000001c2   DAC12_1CTL
+000001ca   DAC12_1DAT
+00000056   DCOCTL
+000001e0   DMA0CTL
+000001e4   DMA0DA
+000001e2   DMA0SA
+000001e6   DMA0SZ
+000001e8   DMA1CTL
+000001ec   DMA1DA
+000001ea   DMA1SA
+000001ee   DMA1SZ
+000001f0   DMA2CTL
+000001f4   DMA2DA
+000001f2   DMA2SA
+000001f6   DMA2SZ
+00000122   DMACTL0
+00000124   DMACTL1
+00000128   FCTL1
+0000012a   FCTL2
+0000012c   FCTL3
+00000072   I2CDCTL
+00000076   I2CDRB
+00000076   I2CDRW
+00000050   I2CIE
+00000051   I2CIFG
+0000011c   I2CIV
+00000052   I2CNDAT
+00000118   I2COA
+00000073   I2CPSC
+0000011a   I2CSA
+00000074   I2CSCLH
+00000075   I2CSCLL
+00000071   I2CTCTL
+00000000   IE1
+00000001   IE2
+00000002   IFG1
+00000003   IFG2
+00004c90   InitP2_7
+00000134   MAC
+00000136   MACS
+00000004   ME1
+00000005   ME2
+00000130   MPY
+00000132   MPYS
+00000138   OP2
+00000022   P1DIR
+00000025   P1IE
+00000024   P1IES
+00000023   P1IFG
+00000020   P1IN
+00000021   P1OUT
+00000026   P1SEL
+0000002a   P2DIR
+0000002d   P2IE
+0000002c   P2IES
+0000002b   P2IFG
+00000028   P2IN
+00000029   P2OUT
+0000002e   P2SEL
+00004cc6   P2_ISR
+0000001a   P3DIR
+00000018   P3IN
+00000019   P3OUT
+0000001b   P3SEL
+0000001e   P4DIR
+0000001c   P4IN
+0000001d   P4OUT
+0000001f   P4SEL
+00000032   P5DIR
+00000030   P5IN
+00000031   P5OUT
+00000033   P5SEL
+00000036   P6DIR
+00000034   P6IN
+00000035   P6OUT
+00000037   P6SEL
+0000013c   RESHI
+0000013a   RESLO
+0000013e   SUMEXT
+00000055   SVSCTL
+00000172   TACCR0
+00000174   TACCR1
+00000176   TACCR2
+00000162   TACCTL0
+00000164   TACCTL1
+00000166   TACCTL2
+00000160   TACTL
+0000012e   TAIV
+00000170   TAR
+00000192   TBCCR0
+00000194   TBCCR1
+00000196   TBCCR2
+00000198   TBCCR3
+0000019a   TBCCR4
+0000019c   TBCCR5
+0000019e   TBCCR6
+00000182   TBCCTL0
+00000184   TBCCTL1
+00000186   TBCCTL2
+00000188   TBCCTL3
+0000018a   TBCCTL4
+0000018c   TBCCTL5
+0000018e   TBCCTL6
+00000180   TBCTL
+0000011e   TBIV
+00000190   TBR
+00000074   U0BR0
+00000075   U0BR1
+00000070   U0CTL
+00000073   U0MCTL
+00000072   U0RCTL
+00000076   U0RXBUF
+00000071   U0TCTL
+00000077   U0TXBUF
+0000007c   U1BR0
+0000007d   U1BR1
+00000078   U1CTL
+0000007b   U1MCTL
+0000007a   U1RCTL
+0000007e   U1RXBUF
+00000079   U1TCTL
+0000007f   U1TXBUF
+00000120   WDTCTL
+00003900   __STACK_END
+00000050   __STACK_SIZE
+00000001   __TI_args_main
+00000001   __TI_auto_init
+00000001   __TI_exit
+ffffffff   __binit__
+00001100   __bss__
+ffffffff   __c_args__
+00004d12   __cinit__
+0000111b   __end__
+00004d12   __etext__
+0000470e   __fs_add
+00004ad2   __fs_cmp
+000049d0   __fs_div
+00004bdc   __fs_itof
+0000490e   __fs_mpy
+00004708   __fs_sub
+00004a6a   __fs_toi
+ffffffff   __pinit__
+00004000   __text__
+00004b1c   _auto_init
+00004c46   _c_int00
+00004c46   _c_int00_noexit
+00001116   _cleanup_ptr
+00001118   _dtors_ptr
+00001112   _lock
+00004d10   _nop
+0000fffe   _reset_vector
+000038b0   _stack
+00004d08   _system_pre_init
+00001114   _unlock
+00004d0c   abort
+00004566   basicRfInit
+00004ba4   basicRfReceiveOn
+00004344   basicRfSendPacket
+ffffffff   binit
+00001100   bucleInicial
+00004d12   cinit
+0000111b   end
+00004d12   etext
+00004000   fifo_rx
+00004cfc   func_epilog_1
+00004cfa   func_epilog_2
+00004cf8   func_epilog_3
+00004cf6   func_epilog_4
+00004cf4   func_epilog_5
+00004cf2   func_epilog_6
+00004cf0   func_epilog_7
+00004b62   halRfSetChannel
+00004c6c   halRfWaitForCrystalOscillator
+00004c12   halSpiInit
+00004d00   halWait
+00004838   main
+00004cde   memcpy
+ffffffff   pinit
+00001102   rfSettings
+0000111a   spiStatusByte
+00004cac   timer1min
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address    name
+--------   ----
+00000000   IE1
+00000001   IE2
+00000001   __TI_args_main
+00000001   __TI_auto_init
+00000001   __TI_exit
+00000002   IFG1
+00000003   IFG2
+00000004   ME1
+00000005   ME2
+00000018   P3IN
+00000019   P3OUT
+0000001a   P3DIR
+0000001b   P3SEL
+0000001c   P4IN
+0000001d   P4OUT
+0000001e   P4DIR
+0000001f   P4SEL
+00000020   P1IN
+00000021   P1OUT
+00000022   P1DIR
+00000023   P1IFG
+00000024   P1IES
+00000025   P1IE
+00000026   P1SEL
+00000028   P2IN
+00000029   P2OUT
+0000002a   P2DIR
+0000002b   P2IFG
+0000002c   P2IES
+0000002d   P2IE
+0000002e   P2SEL
+00000030   P5IN
+00000031   P5OUT
+00000032   P5DIR
+00000033   P5SEL
+00000034   P6IN
+00000035   P6OUT
+00000036   P6DIR
+00000037   P6SEL
+00000050   I2CIE
+00000050   __STACK_SIZE
+00000051   I2CIFG
+00000052   I2CNDAT
+00000055   SVSCTL
+00000056   DCOCTL
+00000057   BCSCTL1
+00000058   BCSCTL2
+00000059   CACTL1
+0000005a   CACTL2
+0000005b   CAPD
+00000070   U0CTL
+00000071   I2CTCTL
+00000071   U0TCTL
+00000072   I2CDCTL
+00000072   U0RCTL
+00000073   I2CPSC
+00000073   U0MCTL
+00000074   I2CSCLH
+00000074   U0BR0
+00000075   I2CSCLL
+00000075   U0BR1
+00000076   I2CDRB
+00000076   I2CDRW
+00000076   U0RXBUF
+00000077   U0TXBUF
+00000078   U1CTL
+00000079   U1TCTL
+0000007a   U1RCTL
+0000007b   U1MCTL
+0000007c   U1BR0
+0000007d   U1BR1
+0000007e   U1RXBUF
+0000007f   U1TXBUF
+00000080   ADC12MCTL0
+00000081   ADC12MCTL1
+00000082   ADC12MCTL2
+00000083   ADC12MCTL3
+00000084   ADC12MCTL4
+00000085   ADC12MCTL5
+00000086   ADC12MCTL6
+00000087   ADC12MCTL7
+00000088   ADC12MCTL8
+00000089   ADC12MCTL9
+0000008a   ADC12MCTL10
+0000008b   ADC12MCTL11
+0000008c   ADC12MCTL12
+0000008d   ADC12MCTL13
+0000008e   ADC12MCTL14
+0000008f   ADC12MCTL15
+00000118   I2COA
+0000011a   I2CSA
+0000011c   I2CIV
+0000011e   TBIV
+00000120   WDTCTL
+00000122   DMACTL0
+00000124   DMACTL1
+00000128   FCTL1
+0000012a   FCTL2
+0000012c   FCTL3
+0000012e   TAIV
+00000130   MPY
+00000132   MPYS
+00000134   MAC
+00000136   MACS
+00000138   OP2
+0000013a   RESLO
+0000013c   RESHI
+0000013e   SUMEXT
+00000140   ADC12MEM0
+00000142   ADC12MEM1
+00000144   ADC12MEM2
+00000146   ADC12MEM3
+00000148   ADC12MEM4
+0000014a   ADC12MEM5
+0000014c   ADC12MEM6
+0000014e   ADC12MEM7
+00000150   ADC12MEM8
+00000152   ADC12MEM9
+00000154   ADC12MEM10
+00000156   ADC12MEM11
+00000158   ADC12MEM12
+0000015a   ADC12MEM13
+0000015c   ADC12MEM14
+0000015e   ADC12MEM15
+00000160   TACTL
+00000162   TACCTL0
+00000164   TACCTL1
+00000166   TACCTL2
+00000170   TAR
+00000172   TACCR0
+00000174   TACCR1
+00000176   TACCR2
+00000180   TBCTL
+00000182   TBCCTL0
+00000184   TBCCTL1
+00000186   TBCCTL2
+00000188   TBCCTL3
+0000018a   TBCCTL4
+0000018c   TBCCTL5
+0000018e   TBCCTL6
+00000190   TBR
+00000192   TBCCR0
+00000194   TBCCR1
+00000196   TBCCR2
+00000198   TBCCR3
+0000019a   TBCCR4
+0000019c   TBCCR5
+0000019e   TBCCR6
+000001a0   ADC12CTL0
+000001a2   ADC12CTL1
+000001a4   ADC12IFG
+000001a6   ADC12IE
+000001a8   ADC12IV
+000001c0   DAC12_0CTL
+000001c2   DAC12_1CTL
+000001c8   DAC12_0DAT
+000001ca   DAC12_1DAT
+000001e0   DMA0CTL
+000001e2   DMA0SA
+000001e4   DMA0DA
+000001e6   DMA0SZ
+000001e8   DMA1CTL
+000001ea   DMA1SA
+000001ec   DMA1DA
+000001ee   DMA1SZ
+000001f0   DMA2CTL
+000001f2   DMA2SA
+000001f4   DMA2DA
+000001f6   DMA2SZ
+00001100   .bss
+00001100   __bss__
+00001100   bucleInicial
+00001102   rfSettings
+0000110c   CoordinatorAddr
+0000110e   AddrOK
+00001112   _lock
+00001114   _unlock
+00001116   _cleanup_ptr
+00001118   _dtors_ptr
+0000111a   spiStatusByte
+0000111b   __end__
+0000111b   end
+000038b0   _stack
+00003900   __STACK_END
+00004000   .text
+00004000   __text__
+00004000   fifo_rx
+00004344   basicRfSendPacket
+00004566   basicRfInit
+00004708   __fs_sub
+0000470e   __fs_add
+00004838   main
+0000490e   __fs_mpy
+000049d0   __fs_div
+00004a6a   __fs_toi
+00004ad2   __fs_cmp
+00004b1c   _auto_init
+00004b62   halRfSetChannel
+00004ba4   basicRfReceiveOn
+00004bdc   __fs_itof
+00004c12   halSpiInit
+00004c46   _c_int00
+00004c46   _c_int00_noexit
+00004c6c   halRfWaitForCrystalOscillator
+00004c90   InitP2_7
+00004cac   timer1min
+00004cc6   P2_ISR
+00004cde   memcpy
+00004cf0   func_epilog_7
+00004cf2   func_epilog_6
+00004cf4   func_epilog_5
+00004cf6   func_epilog_4
+00004cf8   func_epilog_3
+00004cfa   func_epilog_2
+00004cfc   func_epilog_1
+00004d00   halWait
+00004d08   _system_pre_init
+00004d0c   C$$EXIT
+00004d0c   abort
+00004d10   _nop
+00004d12   __cinit__
+00004d12   __etext__
+00004d12   cinit
+00004d12   etext
+0000fffe   _reset_vector
+ffffffff   __binit__
+ffffffff   __c_args__
+ffffffff   __pinit__
+ffffffff   binit
+ffffffff   pinit
+
+[230 symbols]

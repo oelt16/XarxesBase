@@ -1,0 +1,1 @@
+"./sensor.obj" "./halwaitsensor.obj" "./hal_wait.obj" "./hal_spi.obj" "./hal_rf_wait_for_crystal_oscillator.obj" "./hal_rf_set_channel.obj" "./hal_TempCalculation.obj" "../lnk_msp430f1611.cmd" -l"libc.a" 
