@@ -1,0 +1,1 @@
+"./hal_wait.obj" "./hal_spi.obj" "./hal_rf_wait_for_crystal_oscillator.obj" "./hal_rf_set_channel.obj" "./hal_TempCalculation.obj" "./blink.obj" -l"libc.a" "../lnk_msp430f1611.cmd" 

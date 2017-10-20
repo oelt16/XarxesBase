@@ -1,0 +1,63 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../blink.c \
+../hal_TempCalculation.c \
+../hal_rf_set_channel.c \
+../hal_rf_wait_for_crystal_oscillator.c \
+../hal_spi.c \
+../hal_wait.c \
+../halwaitsensor.c 
+
+CMD_SRCS += \
+../lnk_msp430f1611.cmd 
+
+OBJS += \
+./blink.obj \
+./hal_TempCalculation.obj \
+./hal_rf_set_channel.obj \
+./hal_rf_wait_for_crystal_oscillator.obj \
+./hal_spi.obj \
+./hal_wait.obj \
+./halwaitsensor.obj 
+
+C_DEPS += \
+./blink.pp \
+./hal_TempCalculation.pp \
+./hal_rf_set_channel.pp \
+./hal_rf_wait_for_crystal_oscillator.pp \
+./hal_spi.pp \
+./hal_wait.pp \
+./halwaitsensor.pp 
+
+OBJS__QTD += \
+".\blink.obj" \
+".\hal_TempCalculation.obj" \
+".\hal_rf_set_channel.obj" \
+".\hal_rf_wait_for_crystal_oscillator.obj" \
+".\hal_spi.obj" \
+".\hal_wait.obj" \
+".\halwaitsensor.obj" 
+
+C_DEPS__QTD += \
+".\blink.pp" \
+".\hal_TempCalculation.pp" \
+".\hal_rf_set_channel.pp" \
+".\hal_rf_wait_for_crystal_oscillator.pp" \
+".\hal_spi.pp" \
+".\hal_wait.pp" \
+".\halwaitsensor.pp" 
+
+C_SRCS_QUOTED += \
+"../blink.c" \
+"../hal_TempCalculation.c" \
+"../hal_rf_set_channel.c" \
+"../hal_rf_wait_for_crystal_oscillator.c" \
+"../hal_spi.c" \
+"../hal_wait.c" \
+"../halwaitsensor.c" 
+
+

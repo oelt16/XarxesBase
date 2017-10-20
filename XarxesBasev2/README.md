@@ -1,0 +1,2 @@
+# XarxesBase
+Proyecto base

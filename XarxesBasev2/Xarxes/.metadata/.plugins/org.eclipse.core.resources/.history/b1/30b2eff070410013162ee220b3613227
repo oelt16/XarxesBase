@@ -1,0 +1,48 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Each subdirectory must supply rules for building sources it contributes
+blink.obj: ../blink.c $(GEN_OPTS) $(GEN_SRCS)
+	@echo 'Building file: $<'
+	@echo 'Invoking: MSP430 Compiler'
+	"C:/CCS1/ccsv5/tools/compiler/msp430/bin/cl430" -vmsp --abi=coffabi -O2 --include_path="C:/CCS1/ccsv5/ccs_base/msp430/include" --include_path="C:/CCS1/ccsv5/tools/compiler/msp430/include" --define=__MSP430F1611__ --diag_warning=225 --display_error_number --printf_support=minimal --preproc_with_compile --preproc_dependency="blink.pp" $(GEN_OPTS__FLAG) "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+hal_TempCalculation.obj: ../hal_TempCalculation.c $(GEN_OPTS) $(GEN_SRCS)
+	@echo 'Building file: $<'
+	@echo 'Invoking: MSP430 Compiler'
+	"C:/CCS1/ccsv5/tools/compiler/msp430/bin/cl430" -vmsp --abi=coffabi -O2 --include_path="C:/CCS1/ccsv5/ccs_base/msp430/include" --include_path="C:/CCS1/ccsv5/tools/compiler/msp430/include" --define=__MSP430F1611__ --diag_warning=225 --display_error_number --printf_support=minimal --preproc_with_compile --preproc_dependency="hal_TempCalculation.pp" $(GEN_OPTS__FLAG) "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+hal_rf_set_channel.obj: ../hal_rf_set_channel.c $(GEN_OPTS) $(GEN_SRCS)
+	@echo 'Building file: $<'
+	@echo 'Invoking: MSP430 Compiler'
+	"C:/CCS1/ccsv5/tools/compiler/msp430/bin/cl430" -vmsp --abi=coffabi -O2 --include_path="C:/CCS1/ccsv5/ccs_base/msp430/include" --include_path="C:/CCS1/ccsv5/tools/compiler/msp430/include" --define=__MSP430F1611__ --diag_warning=225 --display_error_number --printf_support=minimal --preproc_with_compile --preproc_dependency="hal_rf_set_channel.pp" $(GEN_OPTS__FLAG) "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+hal_rf_wait_for_crystal_oscillator.obj: ../hal_rf_wait_for_crystal_oscillator.c $(GEN_OPTS) $(GEN_SRCS)
+	@echo 'Building file: $<'
+	@echo 'Invoking: MSP430 Compiler'
+	"C:/CCS1/ccsv5/tools/compiler/msp430/bin/cl430" -vmsp --abi=coffabi -O2 --include_path="C:/CCS1/ccsv5/ccs_base/msp430/include" --include_path="C:/CCS1/ccsv5/tools/compiler/msp430/include" --define=__MSP430F1611__ --diag_warning=225 --display_error_number --printf_support=minimal --preproc_with_compile --preproc_dependency="hal_rf_wait_for_crystal_oscillator.pp" $(GEN_OPTS__FLAG) "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+hal_spi.obj: ../hal_spi.c $(GEN_OPTS) $(GEN_SRCS)
+	@echo 'Building file: $<'
+	@echo 'Invoking: MSP430 Compiler'
+	"C:/CCS1/ccsv5/tools/compiler/msp430/bin/cl430" -vmsp --abi=coffabi -O2 --include_path="C:/CCS1/ccsv5/ccs_base/msp430/include" --include_path="C:/CCS1/ccsv5/tools/compiler/msp430/include" --define=__MSP430F1611__ --diag_warning=225 --display_error_number --printf_support=minimal --preproc_with_compile --preproc_dependency="hal_spi.pp" $(GEN_OPTS__FLAG) "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+hal_wait.obj: ../hal_wait.c $(GEN_OPTS) $(GEN_SRCS)
+	@echo 'Building file: $<'
+	@echo 'Invoking: MSP430 Compiler'
+	"C:/CCS1/ccsv5/tools/compiler/msp430/bin/cl430" -vmsp --abi=coffabi -O2 --include_path="C:/CCS1/ccsv5/ccs_base/msp430/include" --include_path="C:/CCS1/ccsv5/tools/compiler/msp430/include" --define=__MSP430F1611__ --diag_warning=225 --display_error_number --printf_support=minimal --preproc_with_compile --preproc_dependency="hal_wait.pp" $(GEN_OPTS__FLAG) "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+
