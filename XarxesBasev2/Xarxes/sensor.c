@@ -12,7 +12,7 @@ volatile BASIC_RF_SETTINGS rfSettings;
 //-----------------------------------------------------------------------------------
 // PRIVATE CONSTANTS
 
-#define PAYLOAD_SIZE	10
+#define PAYLOAD_SIZE	1
 #define RF_CHANNEL		15
 #define TX_PERIOD       50  // Packet sent each n'th cycle
 
@@ -20,11 +20,14 @@ volatile BASIC_RF_SETTINGS rfSettings;
 
 //receptor tiene 30arriba 50 ABAJO
 
-#define MYADDR			0x3030
-#define DESADDR			0x5050//0xFFFF //
+#define MYADDR			0x6969
+#define DESADDR			0x1416
 INT8 x;
+INT8 estado;
+INT8 ack;
 INT8 foo;
-INT8 recibidos ;
+INT8 recibidos;
+UINT8 request;
 #ifdef __ICC430__
 #define FILL_UINT8    0xFF
 #else
@@ -64,6 +67,7 @@ int main(void) {
     PORT_INIT();
     SPI_INIT();
     InitP2_7();
+    estado = 0;
     recibidos = 0;
     // Wait for the user to select node address, and initialize for basic RF operation
 	halWait(1000);
@@ -79,9 +83,9 @@ int main(void) {
     rfTxInfo.pPayload = pTxBuffer;
     rfRxInfo.pPayload = pRxBuffer;
 
-    for (n = 0; n < PAYLOAD_SIZE; n++) {
-        pTxBuffer[n] = FILL_UINT8;
-    }
+   //if est 1
+    //pTxBuffer[0] = 0x11;
+
     iLoopCount= 0;
     CLR_YLED();
 
@@ -394,6 +398,7 @@ __interrupt void fifo_rx(void){
 	INT8 length;
 	UINT8 pFooter[2];
 	INT8 x;
+	INT8 i;
 	
 	TOGGLE_RLED();            //INTERUPPT ACTIVE
     CLEAR_FIFOP_INT();
@@ -455,6 +460,17 @@ __interrupt void fifo_rx(void){
 			// Read the footer to get the RSSI value
 			FASTSPI_READ_FIFO_NO_WAIT((UINT8*) pFooter, 2);
 			rfSettings.pRxInfo->rssi = pFooter[0];
+
+			if(rfSettings.pRxInfo->pPayload[0] == 0x10){
+			    estado = 1;
+			    ack = 0;
+			}
+			if(rfSettings.pRxInfo->pPayload[0] == 0x55 && estado == 1){
+			    estado = 2;
+			}
+			if(rfSettings.pRxInfo->pPayload[0] == 0x20 && estado == 2){
+			    estado =
+			}
 			x = rfSettings.pRxInfo->rssi - 45;
 
 			// Notify the application about the received _data_ packet if the CRC is OK
