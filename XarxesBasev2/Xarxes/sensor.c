@@ -4,6 +4,9 @@
 #include "include/hal/msp430/hal.h"
 #include "include/hal/msp430/hal_msp430FET.h"
 #include "include/hal/hal_cc2420.h"
+#include <time.h>
+#include <stdio.h>
+
 
 BOOL bucleInicial = TRUE;
 // The RF settings structure is declared here, since we'll always need halRfInit()
@@ -12,20 +15,31 @@ volatile BASIC_RF_SETTINGS rfSettings;
 //-----------------------------------------------------------------------------------
 // PRIVATE CONSTANTS
 
-#define PAYLOAD_SIZE	1
+#define PAYLOAD_SIZE	10
 #define RF_CHANNEL		15
 #define TX_PERIOD       50  // Packet sent each n'th cycle
 
 #define PANID			0x2420
+//Request variables
+#define START_REQUEST 0x10
+#define ACK 0x55
+#define SLEEP_REQUEST 0x20
+#define DATA_REQUEST 0x40
+
+#define START_RESPONSE 0x11
+#define SLEEP_RESPONSE 0x21
+#define WAKE_UP 0x30
+#define DATA 0x41
 
 //receptor tiene 30arriba 50 ABAJO
 
-#define MYADDR			0x6969
+#define MYADDR			0x6541
 #define DESADDR			0x1416
 INT8 x;
 INT8 estado;
-INT8 ack;
+BOOL wait;
 INT8 foo;
+int i;
 INT8 recibidos;
 UINT8 request;
 #ifdef __ICC430__
@@ -45,7 +59,9 @@ static BASIC_RF_RX_INFO rfRxInfo;
 static BASIC_RF_TX_INFO rfTxInfo;
 static UINT8 pTxBuffer[BASIC_RF_MAX_PAYLOAD_SIZE];
 static UINT8 pRxBuffer[BASIC_RF_MAX_PAYLOAD_SIZE];
-
+void wait_response();
+void enviar_trama(UINT8 data);
+void rfshutdown();
 //-----------------------------------------------------------------------------------
 // PRIVATE FUNCTION PROTOTYPES
 
@@ -61,8 +77,7 @@ int main(void) {
 
 
     UINT32 iLoopCount;
-    INT8 n;
-    INT8 i,j;
+
     // Initalize ports for communication with CC2420 and other peripheral units
     PORT_INIT();
     SPI_INIT();
@@ -94,42 +109,39 @@ int main(void) {
 
 	// The main loop:
 	while (TRUE) {
-		if (!bucleInicial){
-			if ( ( iLoopCount % TX_PERIOD) == 0) {
-				UINT8 status;
-				bucleInicial = TRUE;
-				FASTSPI_UPD_STATUS(status);
 
-				// Transmit information on number of packets received
-				// and CC2420 status
-
-				pTxBuffer[0]=  (UINT8)iLoopCount;
-				pTxBuffer[1] = TRUE;
-				pTxBuffer[2] = nRecv<<8;
-				pTxBuffer[3] = (UINT8)(nRecv & 0x00FF);
-				for (i = 0 ; i <100 ; i++){
-				    halWait(10000);
-                    if (basicRfSendPacket(&rfTxInfo))
-                    {
-                        // OK -> Blink the LED fast
-                        //ledFlash(10, 5000);
-                        TOGGLE_BLED();
-                    } else {
-
-                        // No acknowledgment received -> Blink the LED slow
-                        //ledFlash(5, 10000);
-                        TOGGLE_RLED();
-                    }
-			    }
-				foo = 0;
-			} else {
-				//ledFlash(1,ledPeriod*256);
-				TOGGLE_YLED();
-			}
-			iLoopCount++;
-		}
-
-    }
+        switch(estado){
+            case 1: //Recibimos un START_REQUEST
+                    enviar_trama(START_RESPONSE);
+                    //wait_response(100);
+                    halWait(100);
+                break;
+            case 2: //Recibimos un ACK
+                wait=FALSE;
+                //wait_response(60000); //ESPERAMOS SLEEP_REQUEST
+                break;
+            case 3: //Recibimos un SLEEP_REQUEST
+                wait=FALSE;
+                enviar_trama(SLEEP_RESPONSE);
+                rfshutdown();
+                //wait_response(100);
+                 //ESPERAMOS ACK
+                break;
+            case 4: //RECIBIMOS EL ACK
+                wait=FALSE;
+                enviar_trama(WAKE_UP);
+                //wait_response(200); //ESPERAMOS ACK
+                break;
+            case 5: //Recibimos el ACK
+                wait=FALSE;
+                //wait_response(200); //ESPERAMOS DATA REQUEST
+                break;
+            case 6: //RECIBIMOS EL DATA REQUEST
+                wait=FALSE;
+                enviar_trama(DATA);
+                break;
+        }
+	}
 
  // main
 }
@@ -344,14 +356,17 @@ void basicRfReceiveOff(void)
 } // basicRfReceiveOff
 
 
-/* Deep Sleep
+// Deep Sleep
 void rfshutdown(void)
 {
 SET_RESET_ACTIVE();
 SET_VREG_INACTIVE();
 SPI_DISABLE();
+wait_response(900);
+SPI_ENABLE();
+SET_VREG_ACTIVE();
 }
-*/
+
 
 
 
@@ -397,8 +412,6 @@ __interrupt void fifo_rx(void){
 	UINT16 frameControlField;
 	INT8 length;
 	UINT8 pFooter[2];
-	INT8 x;
-	INT8 i;
 	
 	TOGGLE_RLED();            //INTERUPPT ACTIVE
     CLEAR_FIFOP_INT();
@@ -461,16 +474,29 @@ __interrupt void fifo_rx(void){
 			FASTSPI_READ_FIFO_NO_WAIT((UINT8*) pFooter, 2);
 			rfSettings.pRxInfo->rssi = pFooter[0];
 
-			if(rfSettings.pRxInfo->pPayload[0] == 0x10){
+			if(rfSettings.pRxInfo->pPayload[0] == START_REQUEST){
 			    estado = 1;
-			    ack = 0;
 			}
-			if(rfSettings.pRxInfo->pPayload[0] == 0x55 && estado == 1){
+			else if(estado == 1 && rfSettings.pRxInfo->pPayload[0]== ACK){
 			    estado = 2;
+                            wait=FALSE;
 			}
-			if(rfSettings.pRxInfo->pPayload[0] == 0x20 && estado == 2){
-			    estado =
+			else if(rfSettings.pRxInfo->pPayload[0] == SLEEP_REQUEST){
+			    estado = 3;
+                            wait=FALSE;
 			}
+			else if(estado == 3 && rfSettings.pRxInfo->pPayload[0]== ACK){
+                            estado = 4;
+                            wait=FALSE;
+                        }
+                        else if(estado == 4 && rfSettings.pRxInfo->pPayload[0]== ACK){
+                            estado = 5;
+                            wait=FALSE;
+                        }
+                        else if(rfSettings.pRxInfo->pPayload[0]== DATA_REQUEST){
+                            estado = 6;
+                            wait=FALSE;
+                        }
 			x = rfSettings.pRxInfo->rssi - 45;
 
 			// Notify the application about the received _data_ packet if the CRC is OK
@@ -482,3 +508,44 @@ __interrupt void fifo_rx(void){
     }
 
 } // SIGNAL(SIG_INTERRUPT0)
+
+void wait_response(int temps){
+    clock_t start, end;
+    double time_used;
+    wait=TRUE;
+    start = clock();
+    while(wait){
+        end = clock();
+        time_used += ((double) (end - start)) / CLOCKS_PER_SEC;
+        if(time_used*1000 >= temps){ //Si pasa mas de 200 milis dejamos de esperar y abortamos comunicacion.
+            wait = FALSE;
+            if(estado==5){
+                estado=4;
+            }
+        }
+    }
+}
+
+void enviar_trama(UINT8 data){
+    rfTxInfo.destAddr = DESADDR;
+    rfTxInfo.ackRequest = FALSE;
+    rfTxInfo.destPanId = PANID;
+    rfTxInfo.length = PAYLOAD_SIZE;
+    rfTxInfo.pPayload[0] = data;
+    for (i=1; i<10; i++){
+        rfTxInfo.pPayload[i] = 0xEE;
+    }
+
+    if (basicRfSendPacket(&rfTxInfo))
+   {
+       // OK -> Blink the LED fast
+       //ledFlash(10, 5000);
+       TOGGLE_BLED();
+   } else {
+
+       // No acknowledgment received -> Blink the LED slow
+       //ledFlash(5, 10000);
+       TOGGLE_RLED();
+   }
+
+}
