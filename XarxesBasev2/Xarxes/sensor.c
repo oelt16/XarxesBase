@@ -33,7 +33,7 @@ volatile BASIC_RF_SETTINGS rfSettings;
 
 //receptor tiene 30arriba 50 ABAJO
 
-#define MYADDR			0x6541
+#define MYADDR			0x1714
 #define DESADDR			0x1416
 INT8 x;
 INT8 estado;
@@ -103,7 +103,6 @@ int main(void) {
 
     iLoopCount= 0;
     CLR_YLED();
-
     // Turn on RX mode
     basicRfReceiveOn();
 
@@ -114,8 +113,9 @@ int main(void) {
             case 1: //Recibimos un START_REQUEST
                     enviar_trama(START_RESPONSE);
                     //wait_response(100);
-                    halWait(100);
-                break;
+                    //wait_response(10);
+                    halWait(300000);
+                    break;
             case 2: //Recibimos un ACK
                 wait=FALSE;
                 //wait_response(60000); //ESPERAMOS SLEEP_REQUEST
@@ -474,7 +474,7 @@ __interrupt void fifo_rx(void){
 			FASTSPI_READ_FIFO_NO_WAIT((UINT8*) pFooter, 2);
 			rfSettings.pRxInfo->rssi = pFooter[0];
 
-			if(rfSettings.pRxInfo->pPayload[0] == START_REQUEST){
+			if(rfSettings.pRxInfo->pPayload[0] == START_REQUEST && estado == 0){
 			    estado = 1;
 			}
 			else if(estado == 1 && rfSettings.pRxInfo->pPayload[0]== ACK){
@@ -488,15 +488,15 @@ __interrupt void fifo_rx(void){
 			else if(estado == 3 && rfSettings.pRxInfo->pPayload[0]== ACK){
                             estado = 4;
                             wait=FALSE;
-                        }
-                        else if(estado == 4 && rfSettings.pRxInfo->pPayload[0]== ACK){
-                            estado = 5;
-                            wait=FALSE;
-                        }
-                        else if(rfSettings.pRxInfo->pPayload[0]== DATA_REQUEST){
-                            estado = 6;
-                            wait=FALSE;
-                        }
+            }
+            else if(estado == 4 && rfSettings.pRxInfo->pPayload[0]== ACK){
+                estado = 5;
+                wait=FALSE;
+            }
+            else if(rfSettings.pRxInfo->pPayload[0]== DATA_REQUEST){
+                estado = 6;
+                wait=FALSE;
+            }
 			x = rfSettings.pRxInfo->rssi - 45;
 
 			// Notify the application about the received _data_ packet if the CRC is OK
