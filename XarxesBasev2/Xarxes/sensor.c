@@ -75,7 +75,7 @@ void rfshutdown();
  ********************************************************************/
 int main(void) {
 
-
+    unsigned int iclk = 0;
     UINT32 iLoopCount;
 
     // Initalize ports for communication with CC2420 and other peripheral units
@@ -114,7 +114,13 @@ int main(void) {
                     enviar_trama(START_RESPONSE);
                     //wait_response(100);
                     //wait_response(10);
-                    halWait(300000);
+                    while (iclk<10000){
+                    halWait(20000);
+                    iclk++;
+                    if(estado == 2)
+                        break;
+                    }
+                    iclk = 0;
                     break;
             case 2: //Recibimos un ACK
                 wait=FALSE;
@@ -123,12 +129,20 @@ int main(void) {
             case 3: //Recibimos un SLEEP_REQUEST
                 wait=FALSE;
                 enviar_trama(SLEEP_RESPONSE);
-                rfshutdown();
+                iclk=0;
+                while (iclk<10000){
+                                    halWait(20000);
+                                    iclk++;
+                                    if(estado == 4)
+                                        break;
+                                    }
+                                    iclk = 0;
                 //wait_response(100);
                  //ESPERAMOS ACK
                 break;
             case 4: //RECIBIMOS EL ACK
                 wait=FALSE;
+                rfshutdown();
                 enviar_trama(WAKE_UP);
                 //wait_response(200); //ESPERAMOS ACK
                 break;
@@ -359,10 +373,16 @@ void basicRfReceiveOff(void)
 // Deep Sleep
 void rfshutdown(void)
 {
+unsigned int ing = 0;
 SET_RESET_ACTIVE();
 SET_VREG_INACTIVE();
 SPI_DISABLE();
-wait_response(900);
+//wait_response(900);
+
+while (ing<10000){
+halWait(20000);
+ing++;
+}
 SPI_ENABLE();
 SET_VREG_ACTIVE();
 }
