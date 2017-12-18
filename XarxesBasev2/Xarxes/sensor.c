@@ -97,6 +97,7 @@ int main(void) {
     rfTxInfo.ackRequest = FALSE;
     rfTxInfo.pPayload = pTxBuffer;
     rfRxInfo.pPayload = pRxBuffer;
+    printf("Hola mon");
 
    //if est 1
     //pTxBuffer[0] = 0x11;
@@ -130,8 +131,8 @@ int main(void) {
                 wait=FALSE;
                 enviar_trama(SLEEP_RESPONSE);
                 iclk=0;
-                while (iclk<10000){
-                                    halWait(20000);
+                while (iclk<100){
+                                    halWait(1000);
                                     iclk++;
                                     if(estado == 4)
                                         break;
@@ -144,13 +145,21 @@ int main(void) {
                 wait=FALSE;
                 rfshutdown();
                 enviar_trama(WAKE_UP);
+                iclk=0;
+                                while (iclk<100){
+                                                    halWait(2000);
+                                                    iclk++;
+                                                    if(estado == 5)
+                                                        break;
+                                                    }
+                                                    iclk = 0;
                 //wait_response(200); //ESPERAMOS ACK
                 break;
-            case 5: //Recibimos el ACK
+            /*case 6: //Recibimos el ACK
                 wait=FALSE;
                 //wait_response(200); //ESPERAMOS DATA REQUEST
-                break;
-            case 6: //RECIBIMOS EL DATA REQUEST
+                break;*/
+            case 5: //RECIBIMOS EL DATA REQUEST
                 wait=FALSE;
                 enviar_trama(DATA);
                 break;
@@ -374,17 +383,17 @@ void basicRfReceiveOff(void)
 void rfshutdown(void)
 {
 unsigned int ing = 0;
-SET_RESET_ACTIVE();
-SET_VREG_INACTIVE();
-SPI_DISABLE();
+//SET_RESET_ACTIVE();
+//SET_VREG_INACTIVE();
+//SPI_DISABLE();
 //wait_response(900);
 
-while (ing<10000){
-halWait(20000);
+while (ing<500){
+halWait(2000);
 ing++;
 }
-SPI_ENABLE();
-SET_VREG_ACTIVE();
+//SPI_ENABLE();
+//SET_VREG_ACTIVE();
 }
 
 
@@ -501,7 +510,7 @@ __interrupt void fifo_rx(void){
 			    estado = 2;
                             wait=FALSE;
 			}
-			else if(rfSettings.pRxInfo->pPayload[0] == SLEEP_REQUEST){
+			else if(estado == 2 && rfSettings.pRxInfo->pPayload[0] == SLEEP_REQUEST){
 			    estado = 3;
                             wait=FALSE;
 			}
@@ -509,11 +518,11 @@ __interrupt void fifo_rx(void){
                             estado = 4;
                             wait=FALSE;
             }
-            else if(estado == 4 && rfSettings.pRxInfo->pPayload[0]== ACK){
+            else if(rfSettings.pRxInfo->pPayload[0]== DATA_REQUEST){
                 estado = 5;
                 wait=FALSE;
             }
-            else if(rfSettings.pRxInfo->pPayload[0]== DATA_REQUEST){
+            else if(estado == 5 && rfSettings.pRxInfo->pPayload[0] == ACK){
                 estado = 6;
                 wait=FALSE;
             }

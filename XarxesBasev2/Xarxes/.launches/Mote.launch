@@ -5,7 +5,7 @@
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROGRAM.TI MSP430 USB1_0/MSP430" value="${build_artifact:Mote}"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROJECT.TI MSP430 USB1_0/MSP430" value="Mote"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_TARGET_CONFIG" value="${target_config_active_default:Mote}"/>
-<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.TI MSP430 USB1_0/MSP430" value="C:/Users\mat.aules\XarxesBase\XarxesBasev2\Xarxes\Debug\Mote.out"/>
+<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.TI MSP430 USB1_0/MSP430" value="C:/Users\mat.aules\Desktop\XarxesBase\XarxesBasev2\Xarxes\Debug\Mote.out"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/Mote"/>
 </listAttribute>
